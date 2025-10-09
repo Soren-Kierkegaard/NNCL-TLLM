@@ -1,5 +1,11 @@
 # Time Series Forecasting with LLMs via Nearest Neighbor Contrastive Learning
 
+
+
+|   This is under developpment  |
+
+|_______________________________|
+
 This an implementation attemped of the paper "Rethinking Time Series Forecasting with LLMs via Nearest Neighbor Contrastive Learning" from (https://arxiv.org/pdf/2412.04806)
 
 # Répertoire
