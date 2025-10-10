@@ -200,6 +200,7 @@ class TCTPLearner(nn.Module):
         logits = torch.cat([pos_sim.unsqueeze(1), neg_sim], dim=1)  # (B x B+1)
         labels = torch.zeros(batch_size, dtype=torch.long, device=logits.device)
         
+        # Calculer cross entropy logits vs labels
         loss = F.cross_entropy(logits, labels)
         
         return loss
