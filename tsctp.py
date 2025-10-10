@@ -161,14 +161,25 @@ class TCTPLearner(nn.Module):
             time_series_embedding: Embedding de la série temporelle (B x D)
             nearest_tctps: Top-k TCTPs les plus proches (B x k x D)
             
+            Calcule (simplification des calculs): 
+                cos_sim = (A · B) / (||A|| × ||B||)
+            
+                To L2 Normalisation => A_norm = A / ||A||  # ||A_norm|| = 1
+                                       B_norm = B / ||B||  # ||B_norm|| = 1
+                                       
+                                    => cos_sim = A_norm · B_norm
+            
         Returns:
             Loss NNCL (scalaire)
         """
+        
         batch_size = time_series_embedding.shape[0]
         
-        # Normalisation L2
+        # ================ Etape 1 : Normalisation L2
+        # Après cette étape tout les vecteurs on une norme = 1
         ts_emb_norm = F.normalize(time_series_embedding, p=2, dim=1)  # (B x D)
         
+        # =============== Etape 2 : SIMILARITÉ POSITIVE
         # Moyenne des top-k voisins comme positifs
         positive = nearest_tctps.mean(dim=1)  # (B x D)
         positive_norm = F.normalize(positive, p=2, dim=1)
@@ -176,6 +187,7 @@ class TCTPLearner(nn.Module):
         # Similarité positive
         pos_sim = torch.sum(ts_emb_norm * positive_norm, dim=1) / self.temperature  # (B,)
         
+        # =============== Etape 2 : SIMILARITÉ Négative
         # Similarités négatives (entre éléments du batch)
         neg_sim = torch.mm(ts_emb_norm, ts_emb_norm.t()) / self.temperature  # (B x B)
         
@@ -183,6 +195,7 @@ class TCTPLearner(nn.Module):
         mask = torch.eye(batch_size, device=neg_sim.device).bool()
         neg_sim = neg_sim.masked_fill(mask, float('-inf'))
         
+        # =============== Etape 4 : LOSS CONTRASTIVE
         # InfoNCE loss
         logits = torch.cat([pos_sim.unsqueeze(1), neg_sim], dim=1)  # (B x B+1)
         labels = torch.zeros(batch_size, dtype=torch.long, device=logits.device)
