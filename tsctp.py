@@ -233,36 +233,3 @@ class TCTPLearner(nn.Module):
         self.update_support_set(self.tctp_embeddings)
         
         return nearest_tctps, loss_proto, loss_nncl
-
-
-# Version test sans LLM
-if __name__ == "__main__":
-
-    # Simuler les word token embeddings d'un LLM (ex: GPT-2)
-    vocab_size = 50257  # Taille du vocabulaire GPT-2
-    embedding_dim = 768  # Dimension des embeddings GPT-2
-    
-    # Word embeddings simulés (normalement chargés depuis le LLM) de taille (vocabulaire x embedding_size)
-    word_embeddings = torch.randn(vocab_size, embedding_dim)
-    
-    # Initialiser le TCTP Learner
-    tctp_learner = TCTPLearner(
-        word_token_embeddings = word_embeddings,
-        num_prototypes = 1000,
-        embedding_dim = 768,
-        support_set_size = 10000,
-        top_k = 8,
-        temperature = 0.07
-    )
-    
-    # Simuler un batch de time series embeddings
-    batch_size = 16
-    ts_embeddings = torch.randn(batch_size, embedding_dim)
-    
-    # Forward pass
-    nearest_tctps, loss_proto, loss_nncl = tctp_learner(ts_embeddings)
-    
-    print(f"Shape des nearest TCTPs: {nearest_tctps.shape}")  # (16, 8, 768)
-    print(f"Loss prototype: {loss_proto.item():.4f}")
-    print(f"Loss NNCL: {loss_nncl.item():.4f}")
-    print(f"Taille du support set: {len(tctp_learner.support_queue)}")
