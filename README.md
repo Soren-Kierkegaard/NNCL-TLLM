@@ -24,14 +24,15 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
   
 <img width="640" height="265" alt="nncl-tllm" src="https://github.com/user-attachments/assets/f2530e49-0fcb-492f-97a1-444fe76bc649" />
 
-- Le Problème Fondamental
+- The Fundamental Problem 
+
+  LLMs (such as GPT-2) are trained on text. Their "knowledge" is encoded in the space of word embeddings. 
+  But how can we make a model that only "speaks" the language of text understand time series (numbers)? 
+  Solution might be to either:
   
-  Les LLMs (comme GPT-2) sont entraînés sur du texte. Leur "connaissance" est encodée dans l'espace des embeddings de mots.
-  Mais comment faire comprendre des séries temporelles (des chiffres) à un modèle qui ne "parle" que le langage du texte ?
+  1. Convert numbers into words: [1.5, 2.3, 1.8] → "one point five, two point three, one point eight".
+  2. Or to Tokenize directly the numerical values
   
-  1. Convertir les nombres en mots : [1.5, 2.3, 1.8] → "one point five, two point three, one point eight"
-  2. Ou tokeniser directement les valeurs numériques
- 
   The problem remains. Those 2 approach doesn't capture the temporal semantic of the time serie such as: seasonality, pattern, trend, and so for. 
   
   ==> <b>Instead of directly mapping time series to word tokens, the method creates learnable "text prototypes"</b> and create a breach between to modalities:
