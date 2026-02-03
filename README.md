@@ -1,9 +1,8 @@
 # Time Series Forecasting with LLMs via Nearest Neighbor Contrastive Learning
 
-
-
+ _______________________________
+|                               |
 |   This is under developpment  |
-
 |_______________________________|
 
 This an implementation attemped of the paper "Rethinking Time Series Forecasting with LLMs via Nearest Neighbor Contrastive Learning" from (https://arxiv.org/pdf/2412.04806)
@@ -13,9 +12,21 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
 ## Repository Files:
 ```
 ├── REAMDE.md
-├── tsctp.py
-└── To come
-    └── ...
+├── main.py
+├── opti
+    └── search_params.py     # Contain func for params optimization
+├── pipeline
+    ├── nncltllm.py          # NNCLTLLM complete model
+    ├── train_eval.py        # Complete Train pipeline
+    └── modules
+        ├── normalisation.py  # Part of NNCLTLLM
+        ├── patchembedding.py # same
+        └── tsctp.py          # same
+├── tools
+    └── timeseries_dataset.py # Time serie representatin
+├── viz
+    └── visualization         # Tools for viz 
+└── config.json               # Input config file
 ```
 
 # Architecture
@@ -50,8 +61,13 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
    * Live in the same vector space that embbedings words of the LLM
    * But does not correspond to any real world word, it more like a neologism or pseudo word compose of different unit language, just like sampling the concept of "cat ears" in the image space can lead to have non realistic ears for cats but imaginable regarding the distribution values of cat ears representation
    * It's "pseudo-word", learned to represent concepts for time series
+
+    <figure>
+        <img width="890" height="375" alt="emb_series" src="https://github.com/user-attachments/assets/69aed6fa-2c5b-41d7-abd0-0616b41bc3ed" />
+        <br/>
+        <figcaption><font color="#9900FF">TCTP (Time series Compatible Text Prototype) are pseudo-words vector representation that best capture time series semantic concept</font></figcaption>
+    </figure>
  
-  ==> So TCTP (Time series Compatible Text Prototype) are pseudo-words vector representation that best capture time series semantic concept.
 
   ### Steps:
 
@@ -133,17 +149,7 @@ This makes learning more robust, as several positive examples are used instead o
 
 
 _____________________________________________________
-Borrowed from computer vision, this technique:
 
-Maintains a support set (queue) of TCTPs
-
-For each time series input, finds the top-k nearest neighbor TCTPs
-
-Uses contrastive loss to align time series embeddings with appropriate text prototypes
-
-Formulates prompts by concatenating time series patch embeddings with nearest neighbor TCTPs
-
-  
 # Dataset
 
 - 
