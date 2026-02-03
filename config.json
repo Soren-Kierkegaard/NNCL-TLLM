@@ -1,0 +1,20 @@
+{
+	"config" : 
+	{
+		"name": "Etude des valeurs",
+		"patch_len": 8,
+		"stride": 1,
+		"num_prototypes": 100 ,
+		"support_set_size": 100,
+		"top_k": 16,
+		"embedding_dim": 768,
+		"num_llm_layers": 6,
+		"learning_rate": 0.0246930037137237,
+		"batch_size": 8,
+		"lambda_weight": 1.1088245502579501,
+		"weight_decay": 0.00043090431574633226,
+		"input_length": 60,
+		"pred_length": 1,
+		"channel_names": ["N1","N2","N3","N4","N5","N6"]
+	}
+}
