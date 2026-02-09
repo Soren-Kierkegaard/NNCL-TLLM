@@ -5,7 +5,7 @@ from typing import Tuple, Optional, List
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-def visualize_predictions(inputs: torch.Tensor, predictions: torch.Tensor, ground_truths: torch.Tensor, num_samples: int = 3, channel_names: Optional[List[str]] = None, save_path: str = 'predictions.png'):
+def visualize_predictions(inputs: torch.Tensor, predictions: torch.Tensor, ground_truths: torch.Tensor, num_samples: int = 3, channel_names: Optional[List[str]] = None, save_path: str = 'plots/predictions.png'):
 	
 	"""
 	Visualise les prédictions vs ground truth
@@ -102,7 +102,7 @@ def visualize_predictions(inputs: torch.Tensor, predictions: torch.Tensor, groun
 	plt.close()
 
 
-def plot_training_history(history: dict, save_path: str = 'training_history.png'):
+def plot_training_history(history: dict, save_path: str = 'plots/training_history.png'):
 
 	"""
 		Visualise l'historique d'entraînement

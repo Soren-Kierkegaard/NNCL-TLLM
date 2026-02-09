@@ -7,7 +7,7 @@ from collections import deque
 
 from typing import Tuple, Optional, List
 
-from nncltllm import NNCLTLLM
+from .nncltllm import NNCLTLLM
 
 def train_epoch(
 	model: NNCLTLLM,
