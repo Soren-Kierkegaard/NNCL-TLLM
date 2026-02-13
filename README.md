@@ -1,9 +1,32 @@
 # Time Series Forecasting with LLMs via Nearest Neighbor Contrastive Learning
 
- _______________________________
-|                               |
-|   This is under developpment  |
-|_______________________________|
+<table>
+	<tr>
+		<th>Project</th>
+		<th>Status</th>
+		<th>Completion</th>
+		<th>Keywords</th>
+	</tr>
+	<tr>
+		<td>
+			Time Series Forecasting with LLMs
+		</td>
+		<td>
+			Under developpment
+		</td>
+		<td>
+			Completion
+		</td>
+		<td>
+			<ol>
+				<li>large language model</li>
+				<li>contrastive learning</li>
+				<li>time series</li>
+				<li>ia</li>				
+			</ol>
+		</td>
+	</tr>
+</table>
 
 This an implementation attemped of the paper "Rethinking Time Series Forecasting with LLMs via Nearest Neighbor Contrastive Learning" from (https://arxiv.org/pdf/2412.04806)
 
