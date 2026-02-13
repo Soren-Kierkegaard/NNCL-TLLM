@@ -16,7 +16,7 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
 ├── opti
     └── search_params.py     # Contain func for params optimization
 ├── pipeline
-    ├── nncltllm.py          # NNCLTLLM complete model
+    ├── nncltllm.py          # NNCLTLLM complete model <----------- This is completed by wait for reviewing before publishing
     ├── train_eval.py        # Complete Train pipeline
     └── modules
         ├── normalisation.py  # Part of NNCLTLLM
@@ -147,7 +147,15 @@ This makes learning more robust, as several positive examples are used instead o
 
 <ins>Note:</ins> The anchor is a specific example of data that serves as a reference for comparing other examples (but it not a ground truth - not necessary the reality of the field but rather a starting point for comparison)
 
+# CLAUDE SKILL
 
+I have create a claude skill template and ressources for integration to Claude Desktop or Claude Code, package in zip file
+	
+## How to Install
+	1. In Claude go to parameter
+	2. In skill or capacities
+	3. Under capacities --> add
+	4. Upload the zip file
 _____________________________________________________
 
 # Dataset
