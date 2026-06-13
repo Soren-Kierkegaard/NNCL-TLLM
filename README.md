@@ -15,7 +15,7 @@
 			Under developpment
 		</td>
 		<td>
-			Completion
+			90%
 		</td>
 		<td>
 			<ol>
@@ -61,28 +61,29 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
 - The Fundamental Problem 
 
   LLMs (such as GPT-2) are trained on text. Their "knowledge" is encoded in the space of word embeddings. 
-  But how can we make a model that only "speaks" the language of text understand time series (numbers)? 
+  But how can we make a model that only "speaks" the language of "words" understand the language of numbers ?
+  
   Solution might be to either:
   
   1. Convert numbers into words: [1.5, 2.3, 1.8] → "one point five, two point three, one point eight".
   2. Or to Tokenize directly the numerical values
   
-  The problem remains. Those 2 approach doesn't capture the temporal semantic of the time serie such as: seasonality, pattern, trend, and so for. 
+  The problem still remains. Those 2 approachs doesn't capture the temporal semantic of the time serie such as: seasonality, pattern, trend, and so for. 
   
-  ==> <b>Instead of directly mapping time series to word tokens, the method creates learnable "text prototypes"</b> and create a breach between to modalities:
+  ==> <b>So Instead of directly mapping time series to word tokens, the best way should be create a learnable "text prototypes" and create a breach between two modalities, such as:</b>
 
       Texte ←→ [TCTPs] ←→ TS
 
-- But what does that mean ?
+  Fine but what does that mean ?
   
   The goal is to try to align time series representations with text to make the input comprehensible to LLMs.
   Each prototype represents nearby word tokens in the embedding space, such as each text prototype represents word token embeddings (in its neighborhood) + time series characteristics
   and are learned to be "neighborhood-aware".
 
-  So a <b>Text Prototype</b> is a vector in the embedding space wich:
+  So a <b>"Text Prototype" is a vector in the embedding space</b> wich:
 
    * Live in the same vector space that embbedings words of the LLM
-   * But does not correspond to any real world word, it more like a neologism or pseudo word compose of different unit language, just like sampling the concept of "cat ears" in the image space can lead to have non realistic ears for cats but imaginable regarding the distribution values of cat ears representation
+   * But does not correspond to any real world words, it more like a <b>neologism</b> or <b>pseudo words</b> compose of different unit language, just like sampling the concept of "cat ears" in an image space can lead to have non realistic ears for cats but "imaginable" regarding the distribution values of cat ears.
    * It's "pseudo-word", learned to represent concepts for time series
 
     <figure>
@@ -135,8 +136,7 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
 
        if we try to decompose it: 
 
-           ```
-            python#
+           ```python
             1. Similaritities with positives (TCTPs close)
             positive_sim = cosine_similarity(ts_embedding, mean(nearest_tctps))
             numerator = exp(positive_sim / temperature)
@@ -153,7 +153,7 @@ This an implementation attemped of the paper "Rethinking Time Series Forecasting
 - Nearest Neighbor Contrastive Learning
 
   - As previously mentioned we use Contrative Loss to learn to separate stuff by making those similar closest to one another and the other very distant.
-    The difference between classical Contrastive Learning and Nearest Neighbor Contrastive Learning is that we use the K-closest neihgboor whereas we use a single positiv/negativ in the other.
+    The difference between classical Contrastive Learning and Nearest Neighbor Contrastive Learning is that we use the K-closest neihgboor for the first while we use a single positiv/negativ in the other.
 
     Classique :
 
